@@ -24,6 +24,6 @@
     "require": {
         "jschaedl/iban-validation": "^2.0@dev",
         "illuminate/contracts": "^9.19",
-        "illuminate/support": "9.x-dev"
+        "illuminate/support": "^9.19"
     }
 }
