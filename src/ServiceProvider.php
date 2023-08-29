@@ -2,9 +2,9 @@
  
 namespace Phillopp\LaravelBanking;
  
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as GlobalServiceProvider;
  
-class AppServiceProvider extends ServiceProvider
+class ServiceProvider extends GlobalServiceProvider
 {
     /**
      * All of the container bindings that should be registered.
