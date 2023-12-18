@@ -18,5 +18,13 @@
         "jschaedl/iban-validation": "^2.0",
         "illuminate/contracts": "^9.19",
         "illuminate/support": "^9.19"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.0.3.x-dev"
+        }
+    },
+    "require-dev": {
+        "laravel/sail": "^2.0@dev"
     }
 }

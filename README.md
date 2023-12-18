@@ -2,5 +2,24 @@ Laravel Package based on
 
 * IBAN Validation based on: jschaedl/iban-validation
 
-Offene Ideen:
-* GiroCode Generator
+## Benötigte Config
+company.php
+
+```php
+<?php
+
+return [
+    /* ... */
+    'name' => 'My Company', // Default Value, if Accountholder is not set
+    'bankaccounts' => [
+        'nameOrNumber' => [
+            'iban' => 'IBAN123467543',
+            'bic' => 'BICCCC',
+            'bank' => 'BANKNAME',
+            'accountholder' => 'My Accountholder'
+        ]
+    ],
+    /* ... */
+];
+
+```
