@@ -21,5 +21,6 @@ return [
     ],
     /* ... */
 ];
-
 ```
+
+Purpose-Code-Data from: https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets

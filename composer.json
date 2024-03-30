@@ -2,6 +2,7 @@
     "name": "phillopp/laravel-banking",
     "description": "Laravel Package with Banking Functions",
     "type": "library",
+    "version": "0.0.5",
     "autoload": {
         "psr-4": {
             "Phillopp\\LaravelBanking\\": "src/"
@@ -21,7 +22,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "0.0.3.x-dev"
+            "dev-main": "0.0.6.x-dev"
         }
     },
     "require-dev": {
