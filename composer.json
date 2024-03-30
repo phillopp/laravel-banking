@@ -1,0 +1,34 @@
+{
+    "name": "phillopp/laravel-banking",
+    "description": "Laravel Package with Banking Functions",
+    "type": "library",
+    "version": "0.0.5",
+    "autoload": {
+        "psr-4": {
+            "Phillopp\\LaravelBanking\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Philip Falliano",
+            "email": "philip.falliano@phillopp.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "jschaedl/iban-validation": "^2.0",
+        "illuminate/contracts": "^9.19",
+        "illuminate/support": "^9.19"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.0.6.x-dev"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "scripts": {
+        "tests": "phpunit ./tests"
+    }
+}
