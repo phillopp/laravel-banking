@@ -1,0 +1,16 @@
+stages:          # List of stages for jobs, and their order of execution
+  - test
+  - deploy
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - echo "Running unit tests..."
+    - echo "Code coverage is 90%"
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy
+  script:
+    - apk add curl
+    - 'curl --header "Job-Token: $CI_JOB_TOKEN" --data tag=<tag> "${CI_API_V4_URL}/projects/$CI_PROJECT_ID/packages/composer"'
+  environment: production
