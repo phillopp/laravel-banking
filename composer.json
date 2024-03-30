@@ -26,6 +26,9 @@
         }
     },
     "require-dev": {
-        "laravel/sail": "^2.0@dev"
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "scripts": {
+        "tests": "phpunit ./tests"
     }
 }
