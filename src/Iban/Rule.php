@@ -2,21 +2,22 @@
  
 namespace Phillopp\LaravelBanking\Iban;
  
+use Closure;
 use Iban\Validation\Validator;
-use Illuminate\Contracts\Validation\InvokableRule;
 use Iban\Validation\Iban as IbanObject;
- 
-class Rule implements InvokableRule
+use Illuminate\Contracts\Validation\ValidationRule;
+
+class Rule implements ValidationRule
 {
     /**
      * Run the validation rule.
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @param  \Closure  $fail
+     * @param  Closure  $fail
      * @return void
      */
-    public function __invoke($attribute, $value, $fail)
+    public function validate($attribute, $value, $fail): void
     {
         $validator = new Validator();
         $iban = new IbanObject($value);

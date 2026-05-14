@@ -4,6 +4,7 @@ namespace Phillopp\LaravelBanking\Iban;
 
 use Iban\Validation\Iban as IbanObject;
 use Illuminate\Support\Str;
+use Phillopp\LaravelBanking\Models\Bankaccount;
 
 class Service
 {
@@ -21,8 +22,18 @@ class Service
         return $iban->format($format);
     }
 
+    /**
+     * Gets Girocode-Content for given Account
+     * @param Bankaccount $account
+     * @param float $amount
+     * @param string $reference
+     * @param string $purpose
+     * @param string $userHint
+     * @return string
+     * @throws \Exception
+     */
     public static function epcContentFromAccount(
-        \Phillopp\LaravelBanking\Models\Bankaccount $account,
+        Bankaccount $account,
         float $amount,
         string $reference = '',
         string $purpose = '',
@@ -36,18 +47,20 @@ class Service
             throw new \Exception('You can only set reference or purpose');
         }
 
-        $beneficiary = Str::substr($account->getAccountHolder(), 0, 70);
-        $iban = $account->getIban();
-        $iban = $iban->getNormalizedIban();
-
-        $epcDefault = "BCD\n002\n1\nSCT\n%s\n%s\n%s\nEUR%s\n\n%s\n%s\n%s";
-        $epcString = sprintf($epcDefault, $account->getBic(), $beneficiary, $iban, $amount, $reference, $purpose, $userHint);
-        return $epcString;
+        return self::epcContent(
+            Str::substr($account->getAccountHolder(), 0, 70),
+            $account->getBic(),
+            $account->getIban()->getNormalizedIban(),
+            $amount,
+            $reference,
+            $purpose,
+            $userHint
+        );
     }
 
     public static function epcContent(
         string $beneficiary,
-        string $bic = '',
+        string $bic,
         string $iban,
         float $amount,
         string $reference = '',
@@ -55,27 +68,11 @@ class Service
         string $userHint = '',
     ): string
     {
-        /*
-            BCD
-            001
-            1
-            SCT
-            BFSWDE33BER => $bic
-            Wikimedia Foerdergesellschaft => $beneficiary (max. 70 Char)
-            DE33100205000001194700 => $iban
-            EUR123.45 => $amount
-            
-            => $reference (strukturierter Zeichen-Code mit bis zu 25 Zeichen gem. ISO 11649 RF Creditor Reference, optional)
-            Spende fuer Wikipedia => $purpose (max. 140 char)
-            => $userHint (max. 70 Char)
-        */
-
         $beneficiary = Str::substr($beneficiary, 0, 70);
         $iban = new IbanObject($iban);
         $iban = $iban->getNormalizedIban();
 
         $epcDefault = "BCD\n002\n1\nSCT\n%s\n%s\n%s\nEUR%s\n\n%s\n%s\n%s";
-        $epcString = sprintf($epcDefault, $bic, $beneficiary, $iban, $amount, $reference, $purpose, $userHint);
-        return $epcString;
+        return sprintf($epcDefault, $bic, $beneficiary, $iban, $amount, $reference, $purpose, $userHint);
     }
 }
